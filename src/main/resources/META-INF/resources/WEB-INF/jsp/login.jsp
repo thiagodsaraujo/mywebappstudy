@@ -6,8 +6,10 @@
 
 <body>
 	<b> Welcome to Login page!</b>
-	<h2><pre>${errorMessage}</pre></h2>
-	<div></div>
+	<hr>
+	<div>
+		<h2><pre>${errorMessage}</pre></h2>
+	</div>
 	<form method="post">
 	Name: <input type="text" name="name">
 	Password: <input type="password" name="password">
