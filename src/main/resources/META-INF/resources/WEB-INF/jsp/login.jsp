@@ -5,7 +5,12 @@
 </head>
 
 <body>
-	<b> Welcome to Login page ${name}!</b>
+	<b> Welcome to Login page!</b>
+	<form method="post">
+	Name: <input type="text" name="name">
+	Password: <input type="text" name="password">
+	<input type="submit">
+	</form>
 	
 
 </body>
