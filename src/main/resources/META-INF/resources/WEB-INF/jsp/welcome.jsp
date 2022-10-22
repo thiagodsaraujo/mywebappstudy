@@ -6,8 +6,8 @@
 
 <body>
 	<div><h1> SEJA BEM VINDO </h1></div>
-	<div>Your Login: ${name}</dive>
-	<div>Your Password: ${password}</dive>
+	<h2><pre>${errorMessage}</pre></h2>
+	<div>Your Name: ${name}</dive>
 
 </body>
 
