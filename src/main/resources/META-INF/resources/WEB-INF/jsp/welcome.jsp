@@ -5,11 +5,10 @@
 </head>
 
 <body>
-	<div><h1> SEJA BEM VINDO ${name} </h1></div>
-	<hr>
-	<h2><pre>${errorMessage}</pre></h2>
-	<div>Your Name: ${name}</div>
-	<div><a href="list-todos">Mange</a> your todos</div>
+<div class="container">
+	<h1>Welcome ${name}</h1>
+	<a href="list-todos">Manage</a> your todos
+</div>
 
 </body>
 
