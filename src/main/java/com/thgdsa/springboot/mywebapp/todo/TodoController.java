@@ -1,6 +1,7 @@
 package com.thgdsa.springboot.mywebapp.todo;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import jakarta.validation.Valid;
@@ -42,7 +43,8 @@ public class TodoController {
 			return "todo";
 		}
 		var username = (String) model.get("name");
-		service.addTodo(username,todo.getDescription(), LocalDate.now().plusYears(1), false);
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		service.addTodo(username,todo.getDescription(), todo.getTargetDate(), false);
 		//
 		return "redirect:list-todos";
 	}
