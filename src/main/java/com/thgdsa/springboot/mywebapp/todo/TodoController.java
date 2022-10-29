@@ -6,6 +6,7 @@ import java.util.List;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -24,17 +25,23 @@ public class TodoController {
 	//list-todos
 	@RequestMapping("list-todos")
 	public String listAllTodos(ModelMap model) {
-		List<Todo> todos = service.findByUsername("tita");
+		var username = getName(model);
+		List<Todo> todos = service.findByUsername(username);
 		model.addAttribute("todos", todos);
 		return "listTodos";
 	}
 
 	@RequestMapping(value="add-todo", method = RequestMethod.GET)
 	public String showNewTodoPage(ModelMap model) {
-		var username = (String) model.get("name");
+		var username = getName(model);
 		Todo todo = new Todo(0,username, "", LocalDate.now().plusYears(1),false);
 		model.put("todo",todo );
 		return "todo";
+	}
+
+	private String getName(ModelMap model) {
+		var authentication = SecurityContextHolder.getContext().getAuthentication();
+		return authentication.getName();
 	}
 
 	@RequestMapping(value="add-todo", method = RequestMethod.POST)
@@ -42,7 +49,7 @@ public class TodoController {
 		if (result.hasErrors()){
 			return "todo";
 		}
-		var username = (String) model.get("name");
+		var username = getName(model);
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		service.addTodo(username,todo.getDescription(), todo.getTargetDate(), false);
 		//
@@ -67,7 +74,7 @@ public class TodoController {
 		if (result.hasErrors()){
 			return "todo";
 		}
-		var username = (String) model.get("name");
+		var username = getName(model);
 		todo.setUsername(username);
 		service.updateTodo(todo);
 		return "redirect:list-todos";
