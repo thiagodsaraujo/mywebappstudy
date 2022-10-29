@@ -1,9 +1,5 @@
 package com.thgdsa.springboot.mywebapp.todo;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,18 +11,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-//@Controller
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
+@Controller
 @SessionAttributes("name")
-public class TodoController {
+public class TodoControllerJpa {
 	
 	@Autowired
 	private TodoService service;
+
+	@Autowired
+	private TodoRepository repository;
 
 	//list-todos
 	@RequestMapping("list-todos")
 	public String listAllTodos(ModelMap model) {
 		var username = getName(model);
-		List<Todo> todos = service.findByUsername(username);
+
+
+		List<Todo> todos = repository.findByUsername(username);
 		model.addAttribute("todos", todos);
 		return "listTodos";
 	}

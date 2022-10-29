@@ -1,13 +1,20 @@
 package com.thgdsa.springboot.mywebapp.todo;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 
 //Static List of todos => Database(H2,MySql)
 
+@Entity
 public class Todo {
-	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String username;
 	@Size(min=10, message = "Enter atleas 10 characters")
@@ -22,6 +29,10 @@ public class Todo {
 		this.description = description;
 		this.targetDate = targetDate;
 		this.done = done;
+	}
+
+	public Todo() {
+
 	}
 
 	public int getId() {
